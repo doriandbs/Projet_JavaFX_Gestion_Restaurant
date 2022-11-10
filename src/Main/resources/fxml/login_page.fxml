@@ -7,7 +7,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -20,11 +23,24 @@
         </Button>
       <Pane id="paneleftsidelogin" layoutY="-2.0" prefHeight="607.0" prefWidth="345.0">
          <children>
-            <ImageView fitHeight="98.0" fitWidth="300.0" layoutX="34.0" layoutY="511.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="98.0" fitWidth="300.0" layoutX="34.0" layoutY="495.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/ensitechlogo.png" />
                </image>
             </ImageView>
+            <Text layoutX="56.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Votre Gestionnaire de Restaurant " textAlignment="CENTER" wrappingWidth="233.828125">
+               <font>
+                  <Font name="Franklin Gothic Demi Cond" size="47.0" />
+               </font>
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#d18c17" />
+                        <Stop color="#b0bf6b" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Text>
          </children></Pane>
 
     </children>
