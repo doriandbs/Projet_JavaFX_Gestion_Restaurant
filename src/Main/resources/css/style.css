@@ -1,8 +1,8 @@
 .root{
-    -fx-background-image:url('restaubg.jpg');
+    -fx-background-image:url('background3.jpg');
     -fx-background-size:cover;
 }
 #paneleftsidelogin{
 
-    -fx-background-color: linear-gradient(to bottom, #AB7132, #7C442A);
+    -fx-background-color: linear-gradient(to bottom, #34216B, BLACK);
 }
