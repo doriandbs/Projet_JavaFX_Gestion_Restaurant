@@ -4,7 +4,7 @@
 }
 #paneleftsidelogin{
 
-    -fx-background-color: linear-gradient(to bottom, #34216B, BLACK);
+    -fx-background-color: linear-gradient(to top, #34216B, BLACK);
 }
 
 #button_login{
