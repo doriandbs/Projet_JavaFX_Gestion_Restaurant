@@ -6,3 +6,14 @@
 
     -fx-background-color: linear-gradient(to bottom, #34216B, BLACK);
 }
+
+#button_login{
+     -fx-background-color: linear-gradient(to right, #34216B, BLUE);
+     -fx-background-radius: 30;
+}
+#input_psw{
+    -fx-background-radius: 30;
+}
+#input_pseudo{
+    -fx-background-radius: 30;
+}

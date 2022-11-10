@@ -14,13 +14,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <TextField layoutX="410.0" layoutY="296.0" prefHeight="25.0" prefWidth="276.0" promptText="PSEUDO" />
-        <TextField layoutX="410.0" layoutY="330.0" prefHeight="25.0" prefWidth="276.0" promptText="Mot de passe" />
-        <Button layoutX="409.0" layoutY="394.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="276.0" text="SE CONNECTER" textFill="#654242">
-            <font>
-                <Font size="15.0" />
-            </font>
-        </Button>
+        <TextField id="input_pseudo" layoutX="410.0" layoutY="296.0" prefHeight="25.0" prefWidth="276.0" promptText="PSEUDO" />
+        <TextField id="input_psw" layoutX="410.0" layoutY="330.0" prefHeight="25.0" prefWidth="276.0" promptText="Mot de passe" />
       <Pane id="paneleftsidelogin" layoutY="-2.0" prefHeight="607.0" prefWidth="319.0">
          <children>
             <ImageView fitHeight="98.0" fitWidth="300.0" layoutX="21.0" layoutY="495.0" pickOnBounds="true" preserveRatio="true">
@@ -30,7 +25,7 @@
             </ImageView>
             <Text layoutX="43.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Votre Gestionnaire de Restaurant " textAlignment="CENTER" wrappingWidth="233.828125">
                <font>
-                  <Font name="Franklin Gothic Demi Cond" size="47.0" />
+                  <Font name="Vladimir Script" size="49.0" />
                </font>
                <fill>
                   <LinearGradient endX="1.0" endY="1.0">
@@ -42,6 +37,11 @@
                </fill>
             </Text>
          </children></Pane>
+        <Button id="button_login" layoutX="410.0" layoutY="395.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="276.0" text="SE CONNECTER" textFill="WHITE">
+            <font>
+                <Font name="Modern No. 20" size="15.0" />
+            </font>
+        </Button>
       <ImageView fitHeight="337.0" fitWidth="468.0" layoutX="350.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/logo.png" />
