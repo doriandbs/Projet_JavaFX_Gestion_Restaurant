@@ -24,12 +24,9 @@ public class LoginController {
             ResultSet resultSet = requete.executeQuery();
             while (resultSet.next()){
                 System.out.println(resultSet.getString("NOM") + "est connecté");
-            }
-            if(resultSet.next()){
                 isConnected.setText("CONNEXION REUSSIE");
-            }else{
-                isConnected.setText("CONNEXION FAILED");
             }
+
         }catch(Exception e){
             e.printStackTrace();
         }
