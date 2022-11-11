@@ -6,10 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class LoginController {
     public TextField input_nom;
@@ -17,12 +14,23 @@ public class LoginController {
     public Label isConnected;
 
     public void login(ActionEvent actionEvent){
-        ConnectionClass conn = new ConnectionClass();
-        Connection connection = conn.getConnection();
         try {
-            Statement statement = connection.createStatement();
-            String requete = "SELECT * FROM user WHERE input_nom = '" + input_nom.getText() + "' AND PASSWORD = '" + input_psw.getText();
-            ResultSet resultSet = statement.executeQuery(requete);
+            //Statement statement = connection.createStatement();
+//            ConnectionClass conn = new ConnectionClass();
+//            Connection connection = conn.getConnection();
+            String user = "root";
+            String psw = "";
+            String url="jdbc:mysql://localhost:3306/projetrestaurant";
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection;
+            connection = DriverManager.getConnection(url, user, psw);
+            PreparedStatement  requete = connection.prepareStatement("SELECT FROM user WHERE NOM like ? AND  PASSWORD like ?");
+            requete.setString(1, input_nom.getText());
+            requete.setString(2, input_psw.getText());
+            ResultSet resultSet = requete.executeQuery();
+            while (resultSet.next()){
+                System.out.println(resultSet.getString("NOM") + "est connecté");
+            }
             if(resultSet.next()){
                 isConnected.setText("CONNEXION REUSSIE");
             }else{
