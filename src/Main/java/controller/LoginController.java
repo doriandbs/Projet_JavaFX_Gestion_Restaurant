@@ -18,9 +18,9 @@ public class LoginController {
             //Statement statement = connection.createStatement();
             ConnectionClass conn = new ConnectionClass();
             Connection connection = conn.getConnection();
-            PreparedStatement  requete = connection.prepareStatement("SELECT FROM clients WHERE NOM like ? AND  PASSWORD like ? ");
-            requete.setString(1, "" + input_nom.getText() + "" );
-            requete.setString(2, "" + input_psw.getText() + "" );
+            PreparedStatement  requete = connection.prepareStatement("SELECT * FROM user WHERE NOM like ? AND  PASSWORD like ? ");
+            requete.setString(1, input_nom.getText());
+            requete.setString(2, input_psw.getText());
             ResultSet resultSet = requete.executeQuery();
             while (resultSet.next()){
                 System.out.println(resultSet.getString("NOM") + "est connecté");
