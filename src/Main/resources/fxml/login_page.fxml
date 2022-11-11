@@ -2,6 +2,8 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,16 +14,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="Main.java.controller.LoginController" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <TextField id="input_pseudo" layoutX="410.0" layoutY="296.0" prefHeight="25.0" prefWidth="276.0" promptText="PSEUDO" />
-        <TextField id="input_psw" layoutX="410.0" layoutY="330.0" prefHeight="25.0" prefWidth="276.0" promptText="Mot de passe" />
-        <Button id="button_login" layoutX="410.0" layoutY="395.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="276.0" text="SE CONNECTER" textFill="WHITE">
+        <TextField fx:id="input_nom" layoutX="410.0" layoutY="296.0" prefHeight="25.0" prefWidth="276.0" promptText="Name" />
+      <PasswordField fx:id="input_psw" layoutX="410.0" layoutY="330.0" prefHeight="25.0" prefWidth="276.0" promptText="Password" />
+        <Button id="button_login" layoutX="410.0" layoutY="395.0" mnemonicParsing="false" onAction="#login" prefHeight="31.0" prefWidth="276.0" text="SE CONNECTER" textFill="WHITE">
             <font>
                 <Font name="Modern No. 20" size="15.0" />
             </font>
         </Button>
-      <ImageView fitHeight="337.0" fitWidth="468.0" layoutX="350.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="337.0" fitWidth="468.0" layoutX="350.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/logo.png" />
          </image>
@@ -36,7 +38,7 @@
             <Image url="@../img/passwordicon.png" />
          </image>
       </ImageView>
-      <Pane id="paneleftsidelogin" layoutY="-2.0" prefHeight="607.0" prefWidth="319.0">
+      <Pane id="paneleftsidelogin" layoutY="5.0" prefHeight="607.0" prefWidth="319.0">
          <children>
             <ImageView fitHeight="98.0" fitWidth="300.0" layoutX="21.0" layoutY="495.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -57,6 +59,11 @@
                </fill>
             </Text>
          </children></Pane>
+      <Label fx:id="isConnected" layoutX="466.0" layoutY="475.0" text="EST CONNECTE" textFill="RED">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
 
     </children>
     <stylesheets>
