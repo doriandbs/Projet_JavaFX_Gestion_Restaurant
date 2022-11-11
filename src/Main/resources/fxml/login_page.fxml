@@ -13,6 +13,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Hyperlink?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="Main.java.controller.LoginController" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -64,7 +65,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-
+        <Hyperlink layoutX="519.0" layoutY="445.0" onAction="#inscription" text="Inscription" />
     </children>
     <stylesheets>
         <URL value="@../css/style.css" />
