@@ -14,8 +14,8 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 public class App extends Application {
-    public static void main(String[] args) {
-    }
+//    public static void main(String[] args) {}
+
     public void start(Stage stage) throws Exception {
         AnchorPane pan = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/fxml/login_page.fxml")));
         Scene scene = new Scene(pan);
