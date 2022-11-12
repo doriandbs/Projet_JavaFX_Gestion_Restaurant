@@ -7,9 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.sql.ResultSet;
 
 public class InscriptionPageController {
@@ -24,14 +22,15 @@ public class InscriptionPageController {
             //Statement statement = connection.createStatement();
             ConnectionClass conn = new ConnectionClass();
             Connection connection = conn.getConnection();
-            PreparedStatement requete = connection.prepareStatement("insert into user(N0M,PRENOM,PASSWORD) values (?,?,?)");
+            PreparedStatement requete = connection.prepareStatement("insert into user(NOM,PRENOM,PASSWORD) values(?,?,?)");
             requete.setString(1, input_nom.getText().toUpperCase());
             requete.setString(2, input_prenom.getText().toUpperCase());
             requete.setString(3, input_psw.getText().toUpperCase());
 //            ResultSet resultSet;
             int n = requete.executeUpdate();
             System.out.println(n);
-
+            connection.close();
+            requete.close();
 
         } catch (Exception e) {
             e.printStackTrace();

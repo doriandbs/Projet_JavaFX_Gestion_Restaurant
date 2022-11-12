@@ -25,15 +25,16 @@ public class LoginController {
             //Statement statement = connection.createStatement();
             ConnectionClass conn = new ConnectionClass();
             Connection connection = conn.getConnection();
-            PreparedStatement  requete = connection.prepareStatement("SELECT * FROM user WHERE NOM like ? AND  PASSWORD like ? ");
+            PreparedStatement  requete = connection.prepareStatement("SELECT * FROM user WHERE NOM like ? AND PASSWORD like ? ");
             requete.setString(1, input_nom.getText());
             requete.setString(2, input_psw.getText());
             ResultSet resultSet = requete.executeQuery();
             while (resultSet.next()){
-                System.out.println(resultSet.getString("NOM") + "est connecté");
+                System.out.println(resultSet.getString("NOM") + " est connecté");
                 isConnected.setText("CONNEXION REUSSIE");
             }
-
+            connection.close();
+            requete.close();
         }catch(Exception e){
             e.printStackTrace();
         }
