@@ -69,6 +69,6 @@
     </children>
     <stylesheets>
         <URL value="@../css/style.css" />
-        <URL value="@../css/style.css" />
+        <!--<URL value="@../css/style.css" />-->
     </stylesheets>
 </AnchorPane>

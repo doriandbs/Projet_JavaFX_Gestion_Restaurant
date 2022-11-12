@@ -11,6 +11,10 @@
      -fx-background-color: linear-gradient(to right, #34216B, BLUE);
      -fx-background-radius: 30;
 }
+#button_register{
+    -fx-background-color: linear-gradient(to right, #34216B, BLUE);
+    -fx-background-radius: 30;
+}
 #input_psw{
     -fx-background-radius: 30;
 }
