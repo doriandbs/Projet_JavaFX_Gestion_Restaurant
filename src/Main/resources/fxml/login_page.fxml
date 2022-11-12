@@ -65,10 +65,12 @@
             <Font size="24.0" />
          </font>
       </Label>
-        <Hyperlink layoutX="519.0" layoutY="445.0" onAction="#inscription" text="Inscription" />
+        <Hyperlink layoutX="504.0" layoutY="441.0" onAction="#inscription" text="Inscription" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font></Hyperlink>
     </children>
     <stylesheets>
         <URL value="@../css/style.css" />
-        <!--<URL value="@../css/style.css" />-->
     </stylesheets>
 </AnchorPane>
