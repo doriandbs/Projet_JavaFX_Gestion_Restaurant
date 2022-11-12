@@ -6,17 +6,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.java.controller.InscriptionPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0"
+            prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Main.java.controller.InscriptionPageController">
     <children>
-        <TextField fx:id="input_nom" layoutX="276.0" layoutY="181.0" prefHeight="25.0" prefWidth="174.0" promptText="nom" />
-        <TextField fx:id="input_prenom" layoutX="276.0" layoutY="234.0" prefHeight="25.0" prefWidth="174.0" promptText="prenom" />
-        <TextField fx:id="input_psw" layoutX="276.0" layoutY="290.0" prefHeight="25.0" prefWidth="174.0" promptText="password" />
-        <Text fill="WHITE" layoutX="183.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" />
-        <Text fill="WHITE" layoutX="176.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prenom" />
-        <Text fill="WHITE" layoutX="161.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" />
-        <Button id="button_register" fx:id="button_inscription" layoutX="293.0" layoutY="350.0" mnemonicParsing="false" onAction="#addUser" prefHeight="25.0" prefWidth="140.0" text="Inscription" textFill="WHITE" />
+        <TextField fx:id="input_nom" layoutX="276.0" layoutY="181.0" prefHeight="25.0" prefWidth="174.0"
+                   promptText="nom"/>
+        <TextField fx:id="input_prenom" layoutX="276.0" layoutY="234.0" prefHeight="25.0" prefWidth="174.0"
+                   promptText="prenom"/>
+        <TextField fx:id="input_psw" layoutX="276.0" layoutY="290.0" prefHeight="25.0" prefWidth="174.0"
+                   promptText="password"/>
+        <Text fill="WHITE" layoutX="183.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom"/>
+        <Text fill="WHITE" layoutX="176.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prenom"/>
+        <Text fill="WHITE" layoutX="161.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe"/>
+        <Button id="button_register" fx:id="button_inscription" layoutX="293.0" layoutY="350.0" mnemonicParsing="false"
+                onAction="#addUser" prefHeight="25.0" prefWidth="140.0" text="Inscription" textFill="WHITE"/>
     </children>
     <stylesheets>
-        <URL value="@../css/style.css" />
+        <URL value="@../css/style.css"/>
     </stylesheets>
 </AnchorPane>
