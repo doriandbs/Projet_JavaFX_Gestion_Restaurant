@@ -19,6 +19,7 @@ public class LoginController {
     public TextField input_nom;
     public PasswordField input_psw;
     public Label isConnected;
+    public Label errormsg;
     Stage stage;
     Scene scene;
 
@@ -30,17 +31,19 @@ public class LoginController {
             requete.setString(1, input_nom.getText());
             requete.setString(2, input_psw.getText());
             ResultSet resultSet = requete.executeQuery();
+            if (Objects.equals(input_nom.getText(), null) || Objects.equals(input_psw.getText(), "")) {
+                errormsg.setText("VEUILLEZ RENTRER TOUT LES CHAMPS");
+            }
+           /* if (!Objects.equals(resultSet.getString("NOM"), input_nom) || !Objects.equals(resultSet.getString("PASSWORD"), input_psw)) {
+                isConnected.setText("NOM OU MOT DE PASSE INCORRECT");
+            }*/
             while (resultSet.next()) {
-                if (Objects.equals(input_nom.getText(), null) || Objects.equals(input_psw.getText(), "")) {
-                    isConnected.setText("VEUILLEZ RENTRER TOUT LES CHAMPS");
-                }
+
                 if (Objects.equals(resultSet.getString("NOM"), input_nom.getText()) && Objects.equals(resultSet.getString("PASSWORD"), input_psw.getText())) {
                     System.out.println(resultSet.getString("NOM") + " est connecté");
                     isConnected.setText("CONNEXION REUSSIE");
                 }
-                if (!Objects.equals(resultSet.getString("NOM"), input_nom.getText()) || !Objects.equals(resultSet.getString("PASSWORD"), input_psw.getText())) {
-                    isConnected.setText("NOM OU MOT DE PASSE INCORRECT");
-                }
+
             }
             requete.close();
             connection.close();

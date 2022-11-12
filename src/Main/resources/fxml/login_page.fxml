@@ -10,79 +10,54 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0"
-            prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Main.java.controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.java.controller.LoginController">
     <children>
-        <TextField fx:id="input_nom" layoutX="410.0" layoutY="296.0" prefHeight="25.0" prefWidth="276.0"
-                   promptText="Name"/>
-        <PasswordField fx:id="input_psw" layoutX="410.0" layoutY="330.0" prefHeight="25.0" prefWidth="276.0"
-                       promptText="Password"/>
-        <Button id="button_login" fx:id="button_connexion" layoutX="410.0" layoutY="395.0" mnemonicParsing="false"
-                onAction="#login" prefHeight="31.0" prefWidth="276.0" text="SE CONNECTER" textFill="WHITE">
+        <TextField fx:id="input_nom" layoutX="395.0" layoutY="145.0" prefHeight="45.0" prefWidth="276.0" promptText="Name" />
+        <PasswordField fx:id="input_psw" layoutX="395.0" layoutY="208.0" prefHeight="45.0" prefWidth="276.0" promptText="Password" />
+        <Button id="button_login" fx:id="button_connexion" layoutX="397.0" layoutY="274.0" mnemonicParsing="false" onAction="#login" prefHeight="91.0" prefWidth="276.0" text="SE CONNECTER" textFill="WHITE">
             <font>
-                <Font name="Modern No. 20" size="15.0"/>
+                <Font name="Modern No. 20" size="15.0" />
             </font>
         </Button>
-        <ImageView fitHeight="337.0" fitWidth="468.0" layoutX="350.0" layoutY="19.0" pickOnBounds="true"
-                   preserveRatio="true">
+        <ImageView fitHeight="59.0" fitWidth="45.0" layoutX="350.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../img/logo.png"/>
-            </image>
-        </ImageView>
-        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="373.0" layoutY="296.0" pickOnBounds="true"
-                   preserveRatio="true">
-            <image>
-                <Image url="@../img/usernameicon.png"/>
-            </image>
-        </ImageView>
-        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="373.0" layoutY="330.0" pickOnBounds="true"
-                   preserveRatio="true">
-            <image>
-                <Image url="@../img/passwordicon.png"/>
+                <Image url="@../img/usernameicon.png" />
             </image>
         </ImageView>
         <Pane id="paneleftsidelogin" layoutY="5.0" prefHeight="607.0" prefWidth="319.0">
             <children>
-                <ImageView fitHeight="98.0" fitWidth="300.0" layoutX="21.0" layoutY="495.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <ImageView fitHeight="98.0" fitWidth="300.0" layoutX="21.0" layoutY="495.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img/ensitechlogo.png"/>
+                        <Image url="@../img/ensitechlogo.png" />
                     </image>
                 </ImageView>
-                <Text layoutX="43.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      text="Votre Gestionnaire de Restaurant " textAlignment="CENTER" wrappingWidth="233.828125">
-                    <font>
-                        <Font name="Times New Roman" size="44.0"/>
-                    </font>
-                    <fill>
-                        <LinearGradient endX="1.0" endY="1.0">
-                            <stops>
-                                <Stop color="#2f717c"/>
-                                <Stop color="#338d9f" offset="1.0"/>
-                            </stops>
-                        </LinearGradient>
-                    </fill>
-                </Text>
+            <ImageView fitHeight="542.0" fitWidth="403.0" layoutX="-44.0" layoutY="-25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/logo2.png" />
+               </image>
+            </ImageView>
             </children>
         </Pane>
-        <Label fx:id="isConnected" layoutX="466.0" layoutY="475.0" text="TEST CONNEXION" textFill="RED">
+        <Label fx:id="isConnected" layoutX="412.0" layoutY="504.0" prefHeight="78.0" prefWidth="276.0" text="TEST CONNEXION" textFill="RED">
             <font>
-                <Font size="24.0"/>
+                <Font size="24.0" />
             </font>
         </Label>
-        <Hyperlink layoutX="504.0" layoutY="441.0" onAction="#inscription" text="Inscription" textFill="WHITE">
+        <Hyperlink fx:id="button_register" layoutX="488.0" layoutY="432.0" onAction="#inscription" text="Inscription" textFill="WHITE">
             <font>
-                <Font size="17.0"/>
+                <Font size="17.0" />
             </font>
         </Hyperlink>
+        <ImageView fitHeight="56.0" fitWidth="45.0" layoutX="350.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../img/passwordicon.png" />
+            </image>
+        </ImageView>
+      <Label fx:id="errormsg" layoutX="395.0" layoutY="113.0" textFill="RED" />
     </children>
     <stylesheets>
-        <URL value="@../css/style.css"/>
+        <URL value="@../css/style.css" />
     </stylesheets>
 </AnchorPane>

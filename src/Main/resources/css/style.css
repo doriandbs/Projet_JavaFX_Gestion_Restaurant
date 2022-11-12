@@ -21,3 +21,7 @@
 #input_pseudo{
     -fx-background-radius: 30;
 }
+
+#isConnected{
+    -fx-background-color: WHITE;
+}
