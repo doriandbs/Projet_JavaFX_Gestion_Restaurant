@@ -1,6 +1,7 @@
 package Main.java.controller;
 
 import Main.java.ConnectionClass;
+import Main.java.ValidationInput;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -25,6 +26,8 @@ public class LoginController {
     Scene scene;
 
     public void login() {
+        boolean nom = ValidationInput.textFieldNull(input_nom, errormsg, "Nom requis");
+
         try {
             ConnectionClass conn = new ConnectionClass();
             Connection connection = conn.getConnection();
