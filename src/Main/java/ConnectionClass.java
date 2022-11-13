@@ -1,7 +1,6 @@
 package Main.java;
 
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.Connection;
 
 public class ConnectionClass {
