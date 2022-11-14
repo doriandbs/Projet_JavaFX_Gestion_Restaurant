@@ -22,11 +22,16 @@ public class LoginController {
     public PasswordField input_psw;
     public Label isConnected;
     public Label errormsg;
+    String nomRec = "Nom requis";
+    String pswRec = "Mot de passe requis";
     Stage stage;
     Scene scene;
 
     public void login() {
-        boolean nom = ValidationInput.textFieldNull(input_nom, errormsg, "Nom requis");
+        boolean nom = ValidationInput.textFieldNull(input_nom, errormsg, nomRec);
+        boolean password = ValidationInput.textFieldNull(input_psw, errormsg, pswRec);
+        if (nom) errormsg.setText(nomRec);
+        if (password) errormsg.setText(pswRec);
 
         try {
             ConnectionClass conn = new ConnectionClass();
@@ -53,7 +58,6 @@ public class LoginController {
                 else {
                     errormsg.setText("NOM OU MOT DE PASSE INCORRECT");
                 }
-
             }
             requete.close();
             connection.close();
