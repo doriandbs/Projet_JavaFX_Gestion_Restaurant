@@ -1,5 +1,8 @@
 .root{
+/*
     -fx-background-image:url('background3.jpg');
+*/
+    -fx-background-color: grey;
     -fx-background-size:cover;
 }
 #paneleftsidelogin{

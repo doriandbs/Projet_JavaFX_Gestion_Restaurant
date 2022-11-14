@@ -1,7 +1,12 @@
 package Main.java.constantes;
 public class Constants {
     public static String nomRec = "Nom requis";
+
+    public static String prenomRec = "Prénom requis";
     public static String pswRec = "Mot de passe requis";
+
+    public static String pswRegister = "Le mot de passe doit contenir au moins 8 caractères"
+            +"\n"+"Au moins un chiffre"+"\n"+"Au moins une minuscule et une majuscule"+"\n"+"Au moins un caractère spécial et aucun espace";
     public static String connSucc = "CONNEXION REUSSIE";
     public static String verifCh = "veuillez rentrer tout les champs";
     public static String  nomOrpswI = "nom ou mot de passe incorrect";
