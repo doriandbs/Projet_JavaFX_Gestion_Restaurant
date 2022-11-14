@@ -28,8 +28,8 @@ public class LoginController {
     Scene scene;
 
     public void login() {
-        boolean nom = ValidationInput.textFieldNull(input_nom, errormsg, nomRec);
-        boolean password = ValidationInput.textFieldNull(input_psw, errormsg, pswRec);
+        boolean nom = ValidationInput.textFieldNull(input_nom);
+        boolean password = ValidationInput.textFieldNull(input_psw);
         if (nom) errormsg.setText(nomRec);
         if (password) errormsg.setText(pswRec);
 

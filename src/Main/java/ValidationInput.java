@@ -5,14 +5,12 @@ import javafx.scene.control.TextField;
 
 public class ValidationInput {
 
-    public static boolean textFieldNull(TextField inputTextField, Label inputLabel, String validationText) {
+    public static boolean textFieldNull(TextField inputTextField) {
         boolean isNull = false;
         String validationString = null;
         if (inputTextField.getText().isEmpty()) {
-            validationString = validationText;
             isNull = true;
         }
-        inputLabel.setText(validationString);
         return isNull;
 
     }
