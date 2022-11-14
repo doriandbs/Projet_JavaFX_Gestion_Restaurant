@@ -1,7 +1,7 @@
 package Main.java;
+import Main.java.constantes.Constants;
 
 import java.sql.*;
-
 
 
 public class ConnectionClass {
@@ -9,12 +9,8 @@ public class ConnectionClass {
 
     public Connection getConnection() {
         try {
-            String user = "root";
-            String psw = "";
-            String url = "jdbc:mysql://localhost:3306/projetrestaurant";
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(url, user, psw);
-
+            Class.forName(Constants.driver);
+            connection = DriverManager.getConnection(Constants.url, Constants.user, Constants.psw);
         } catch (Exception e) {
             e.printStackTrace();
         }

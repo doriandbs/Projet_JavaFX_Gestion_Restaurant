@@ -1,6 +1,5 @@
 package Main.java;
 
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class ValidationInput {
@@ -12,7 +11,6 @@ public class ValidationInput {
             isNull = true;
         }
         return isNull;
-
     }
 }
 

@@ -1,4 +1,5 @@
 package Main.java.controller;
+import Main.java.constantes.Constants;
 
 import Main.java.ConnectionClass;
 import Main.java.ValidationInput;
@@ -22,16 +23,15 @@ public class LoginController {
     public PasswordField input_psw;
     public Label isConnected;
     public Label errormsg;
-    String nomRec = "Nom requis";
-    String pswRec = "Mot de passe requis";
+
     Stage stage;
     Scene scene;
 
     public void login() {
         boolean nom = ValidationInput.textFieldNull(input_nom);
         boolean password = ValidationInput.textFieldNull(input_psw);
-        if (nom) errormsg.setText(nomRec);
-        if (password) errormsg.setText(pswRec);
+        if (nom) errormsg.setText(Constants.nomRec);
+        if (password) errormsg.setText(Constants.pswRec);
 
         try {
             ConnectionClass conn = new ConnectionClass();
@@ -47,16 +47,16 @@ public class LoginController {
             while (resultSet.next()) {
 
                 if (Objects.equals(input_nom.getText(), "") || Objects.equals(input_psw.getText(), "")) {
-                    errormsg.setText("VEUILLEZ RENTRER TOUT LES CHAMPS");
+                    errormsg.setText(Constants.verifCh);
                 }
                 else if (Objects.equals(resultSet.getString("NOM"), input_nom.getText()) && Objects.equals(resultSet.getString("PASSWORD"), input_psw.getText())) {
                     System.out.println(resultSet.getString("NOM") + " est connecté");
-                    isConnected.setText("CONNEXION REUSSIE");
+                    isConnected.setText(Constants.connSucc);
                     isConnected.setTextFill(Color.GREEN);
                     errormsg.setText("");
                 }
                 else {
-                    errormsg.setText("NOM OU MOT DE PASSE INCORRECT");
+                    errormsg.setText(Constants.nomOrpswI);
                 }
             }
             requete.close();
