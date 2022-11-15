@@ -15,4 +15,5 @@ public class Constants {
     public static String psw = "";
     public static  String url = "jdbc:mysql://localhost:3306/projetrestaurant";
     public static String driver = "com.mysql.cj.jdbc.Driver";
+
 }
