@@ -31,6 +31,14 @@ public class LoginController {
         boolean nom = ValidationInput.textFieldNull(input_nom);
         boolean password = ValidationInput.textFieldNull(input_psw);
 
+        if (nom) errormsg.setText(Constants.nomRec);
+        else if (password) {
+            errormsg.setText(Constants.pswRec);
+        }
+        else{
+            errormsg.setText(Constants.userNotFound);
+        }
+
 
         try {
             ConnectionClass conn = new ConnectionClass();
@@ -40,13 +48,6 @@ public class LoginController {
             requete.setString(2, input_psw.getText());
             ResultSet resultSet = requete.executeQuery();
 
-            if(!resultSet.next()){
-                if (nom) errormsg.setText(Constants.nomRec);
-                else if (password) {
-                    errormsg.setText(Constants.pswRec);
-                }
-                else errormsg.setText(Constants.userNotFound);
-            }
 
             while (resultSet.next()) {
                 if (Objects.equals(input_nom.getText(), "") || Objects.equals(input_psw.getText(), "")) {
