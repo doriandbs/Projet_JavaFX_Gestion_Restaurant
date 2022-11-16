@@ -4,9 +4,18 @@ package Main.java.controller;
 import Main.java.ConnectionClass;
 import Main.java.ValidationInput;
 import Main.java.constantes.Constants;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.sql.*;
+import java.util.Objects;
 
 
 public class InscriptionPageController {
@@ -18,6 +27,10 @@ public class InscriptionPageController {
     public Label name_errorLabel;
     public Label firstname_errorLabel;
     public Label psw_errorLabel;
+
+
+    Stage stage;
+    Scene scene;
 
     public void addUser() {
         boolean nameError = ValidationInput.textFieldNull(input_nomRegister);
@@ -44,5 +57,18 @@ public class InscriptionPageController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void back(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/fxml/login_page.fxml")));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
