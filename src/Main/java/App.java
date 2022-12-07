@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class App extends Application {
     public void start(Stage stage) throws Exception {
-        AnchorPane pan = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/fxml/login_page.fxml")));
+        AnchorPane pan = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/Views/login_page.fxml")));
         Scene scene = new Scene(pan);
         stage.setTitle("Gestionnaire de restaurant");
         stage.setScene(scene);

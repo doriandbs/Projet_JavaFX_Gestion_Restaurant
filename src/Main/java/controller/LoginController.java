@@ -1,7 +1,7 @@
 package Main.java.controller;
 import Main.java.constantes.Constants;
 
-import Main.java.ConnectionClass;
+import Main.bdd.ConnectionClass;
 import Main.java.ValidationInput;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -73,7 +73,7 @@ public class LoginController {
 
     public void inscription(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/fxml/register_page.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/Views/register_page.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);

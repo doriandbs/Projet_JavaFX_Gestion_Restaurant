@@ -1,4 +1,4 @@
-package Main.java;
+package Main.bdd;
 import Main.java.constantes.Constants;
 
 import java.sql.*;
