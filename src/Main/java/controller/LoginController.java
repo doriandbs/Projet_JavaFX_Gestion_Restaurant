@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -23,6 +24,7 @@ public class LoginController {
     public PasswordField input_psw;
     public Label isConnected;
     public Label errormsg;
+    public Button button_connexion;
 
     Stage stage;
     Scene scene;
@@ -31,29 +33,23 @@ public class LoginController {
         boolean nom = ValidationInput.textFieldNull(input_nom);
         boolean password = ValidationInput.textFieldNull(input_psw);
 
-        if (nom) errormsg.setText(Constants.nomRec);
-        else if (password) {
-            errormsg.setText(Constants.pswRec);
-        }
-        else{
-            errormsg.setText(Constants.userNotFound);
-        }
+        if (nom && password) errormsg.setText(Constants.verifCh);
+        else if (nom) errormsg.setText(Constants.nomRec);
+        else if (password) errormsg.setText(Constants.pswRec);
+        else errormsg.setText(Constants.userNotFound);
 
 
         try {
             ConnectionClass conn = new ConnectionClass();
             Connection connection = conn.getConnection();
-            PreparedStatement requete = connection.prepareStatement("SELECT * FROM user WHERE NOM like ? AND PASSWORD like ? ");
+            PreparedStatement requete = connection.prepareStatement("SELECT * FROM user WHERE NOM = ? AND PASSWORD = ? ");
             requete.setString(1, input_nom.getText());
             requete.setString(2, input_psw.getText());
             ResultSet resultSet = requete.executeQuery();
 
 
             while (resultSet.next()) {
-                if (Objects.equals(input_nom.getText(), "") || Objects.equals(input_psw.getText(), "")) {
-                    errormsg.setText(Constants.verifCh);
-                }
-                else if (Objects.equals(resultSet.getString("NOM"), input_nom.getText()) && Objects.equals(resultSet.getString("PASSWORD"), input_psw.getText())) {
+                if (Objects.equals(resultSet.getString("NOM"), input_nom.getText()) && Objects.equals(resultSet.getString("PASSWORD"), input_psw.getText())) {
                     System.out.println(resultSet.getString("NOM") + " est connecté");
                     isConnected.setText(Constants.connSucc);
                     isConnected.setTextFill(Color.GREEN);

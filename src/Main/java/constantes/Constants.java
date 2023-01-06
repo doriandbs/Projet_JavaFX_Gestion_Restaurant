@@ -11,6 +11,8 @@ public class Constants {
     public static String verifCh = "veuillez rentrer tous les champs";
     public static String  nomOrpswI = "nom ou mot de passe incorrect";
     public static String userNotFound = "Utilisateur inconnu, veuilez cliquer vous inscrire";
+    public static String userExist = "L'utilisateur existe déjà";
+    public static String userCreat = "Utilisateur créer";
     public static String user = "root";
     public static String psw = "";
     public static  String url = "jdbc:mysql://localhost:3306/projetrestaurant";
