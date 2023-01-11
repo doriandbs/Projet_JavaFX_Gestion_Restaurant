@@ -48,14 +48,16 @@ public class InscriptionPageController {
             Connection connection = conn.getConnection();
 
             PreparedStatement requete1 = connection.prepareStatement("SELECT * FROM user WHERE NOM = ? AND PRENOM = ? AND PASSWORD = ?");
-            requete1.setString(1, input_nomRegister.getText().toUpperCase());
-            requete1.setString(2, input_prenomRegister.getText().toUpperCase());
-            requete1.setString(3, input_pswRegister.getText().toUpperCase());
+            requete1.setString(1, input_nomRegister.getText());
+            requete1.setString(2, input_prenomRegister.getText());
+            requete1.setString(3, input_pswRegister.getText());
 
             if(requete1.executeQuery().next()){
                 userNotFound.setText(Constants.userExist);
                 userNotFound.setTextFill(Color.RED);
-                requete1.close();
+                name_errorLabel.setText("");
+                firstname_errorLabel.setText("");
+                psw_errorLabel.setText("");
             }
             else if (nameError && firstNameError && mdpNull) {
                 name_errorLabel.setText(Constants.nomRec);
@@ -104,13 +106,14 @@ public class InscriptionPageController {
                 userNotFound.setTextFill(Color.GREEN);
                 psw_errorLabel.setText("");
                 PreparedStatement requete = connection.prepareStatement("insert into user(NOM,PRENOM,PASSWORD) values(?,?,?)");
-                requete.setString(1, input_nomRegister.getText().toUpperCase());
-                requete.setString(2, input_prenomRegister.getText().toUpperCase());
-                requete.setString(3, input_pswRegister.getText().toUpperCase());
+                requete.setString(1, input_nomRegister.getText());
+                requete.setString(2, input_prenomRegister.getText());
+                requete.setString(3, input_pswRegister.getText());
                 int n = requete.executeUpdate();
                 System.out.println(n);
                 requete.close();
             }
+            requete1.close();
             connection.close();
         } catch (Exception e) {
             e.printStackTrace();
