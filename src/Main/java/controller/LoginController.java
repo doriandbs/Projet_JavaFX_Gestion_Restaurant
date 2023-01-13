@@ -35,33 +35,33 @@ public class LoginController {
         else if (nom) errormsg.setText(Constants.nomRec);
         else if (password) errormsg.setText(Constants.pswRec);
         else errormsg.setText(Constants.userNotFound);
+        if(!nom && !password) {
+
+            try {
+                ConnectionClass conn = new ConnectionClass();
+                Connection connection = conn.getConnection();
+                PreparedStatement requete = connection.prepareStatement("SELECT * FROM user WHERE NOM = ? AND PASSWORD = ? ");
+                requete.setString(1, input_nom.getText());
+                requete.setString(2, input_psw.getText());
+                ResultSet resultSet = requete.executeQuery();
 
 
-        try {
-            ConnectionClass conn = new ConnectionClass();
-            Connection connection = conn.getConnection();
-            PreparedStatement requete = connection.prepareStatement("SELECT * FROM user WHERE NOM = ? AND PASSWORD = ? ");
-            requete.setString(1, input_nom.getText());
-            requete.setString(2, input_psw.getText());
-            ResultSet resultSet = requete.executeQuery();
-
-
-            while (resultSet.next()) {
-                if (Objects.equals(resultSet.getString("NOM"), input_nom.getText()) && Objects.equals(resultSet.getString("PASSWORD"), input_psw.getText())) {
-                    System.out.println(resultSet.getString("NOM") + " est connecté");
-                    isConnected.setText(Constants.connSucc);
-                    isConnected.setTextFill(Color.GREEN);
-                    errormsg.setText("");
+                while (resultSet.next()) {
+                    if (Objects.equals(resultSet.getString("NOM"), input_nom.getText()) && Objects.equals(resultSet.getString("PASSWORD"), input_psw.getText())) {
+                        System.out.println(resultSet.getString("NOM") + " est connecté");
+                        isConnected.setText(Constants.connSucc);
+                        isConnected.setTextFill(Color.GREEN);
+                        errormsg.setText("");
+                    } else {
+                        errormsg.setText(Constants.nomOrpswI);
+                    }
                 }
-                else {
-                    errormsg.setText(Constants.nomOrpswI);
-                }
+                requete.close();
+                connection.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            requete.close();
-            connection.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
