@@ -2,7 +2,7 @@ package Main.java.constantes;
 public class Constants {
     public static final String nomRec = "Nom requis";
 
-    public static final String prenomRec = "Prénom requis";
+    public static final String badgeRec = "Badge requis";
     public static final String pswRec = "Mot de passe requis";
 
     public static final String pswRegister = "Le mot de passe doit contenir au moins 8 caractères"
@@ -12,6 +12,7 @@ public class Constants {
     public static final String  nomOrpswI = "nom ou mot de passe incorrect";
     public static final String userNotFound = "Utilisateur inconnu, veuilez cliquer vous inscrire";
     public static final String userExist = "L'utilisateur existe déjà";
+
     public static final String userCreat = "Utilisateur créer";
     public static final String user = "root";
     public static final String psw = "";

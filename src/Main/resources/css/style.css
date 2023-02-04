@@ -25,14 +25,14 @@
 }
 
 #isConnected{
-    -fx-background-color: WHITE;
+    -fx-background-color: #FFFFFF;
 }
 #leftSide{
     -fx-background-color: #FBDF17;
 }
 #link{
     -fx-text-inner-color: #05038A;
-    -fx-background-color: TRANSPARANT;
+    -fx-background-color: #00000000;
 }
 #border{
     -fx-border-color: #FBDF17;
