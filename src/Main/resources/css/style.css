@@ -2,29 +2,38 @@
 /*
     -fx-background-image:url('background3.jpg');
 */
-    -fx-background-color: grey;
+    -fx-background-color: white;
     -fx-background-size:cover;
 }
 #paneleftsidelogin{
-
     -fx-background-color: linear-gradient(to top, #34216B, BLACK);
 }
 
 #button_login{
-     -fx-background-color: linear-gradient(to right, #34216B, BLUE);
+     -fx-background-color: #FBDF17;
      -fx-background-radius: 30;
 }
-#button_register{
-    -fx-background-color: linear-gradient(to right, #34216B, BLUE);
+#register{
+    -fx-background-color: #FBDF17;
     -fx-background-radius: 30;
 }
 #input_psw{
-    -fx-background-radius: 30;
+
 }
 #input_pseudo{
     -fx-background-radius: 30;
 }
 
 #isConnected{
-    -fx-background-color: WHITE;
+    -fx-background-color: #FFFFFF;
+}
+#leftSide{
+    -fx-background-color: #FBDF17;
+}
+#link{
+    -fx-text-inner-color: #05038A;
+    -fx-background-color: #00000000;
+}
+#border{
+    -fx-border-color: #FBDF17;
 }

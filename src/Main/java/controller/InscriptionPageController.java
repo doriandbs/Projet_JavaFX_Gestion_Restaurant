@@ -22,17 +22,19 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Objects;
 
 
 public class InscriptionPageController {
 
-    public TextField input_nomRegister;
-    public TextField input_prenomRegister;
+    public TextField input_nameRegister;
+    public TextField input_badgeRegister;
     public PasswordField input_pswRegister;
 
     public Label name_errorLabel;
-    public Label firstname_errorLabel;
+    public Label badge_ErrorLabel;
     public Label psw_errorLabel;
     public Label userNotFound;
     public Button button_inscription;
@@ -41,10 +43,9 @@ public class InscriptionPageController {
     Stage stage;
     Scene scene;
 
+
+
     public void addUser(ActionEvent event) throws NoSuchAlgorithmException {
-        Users utilisateur = new Users();
-        utilisateur.setNom(input_nomRegister.getText());
-        utilisateur.setPassword(Md5.generateHash(input_pswRegister.getText()));
         boolean nameError = ValidationInput.textFieldNull(input_nomRegister);
         boolean firstNameError = ValidationInput.textFieldNull(input_prenomRegister);
         boolean mdpError = ValidationInput.PasswordRegister(input_pswRegister);
@@ -54,58 +55,52 @@ public class InscriptionPageController {
             ConnectionClass conn = new ConnectionClass();
             Connection connection = conn.getConnection();
 
-            PreparedStatement requete1 = connection.prepareStatement("SELECT * FROM user WHERE NOM = ? AND PRENOM = ? AND PASSWORD = ?");
-            requete1.setString(1, input_nomRegister.getText());
-            requete1.setString(2, input_prenomRegister.getText());
+            PreparedStatement requete1 = connection.prepareStatement("SELECT * FROM user WHERE NOM = ? AND BADGE = ? AND PASSWORD = ?");
+            requete1.setString(1, input_nameRegister.getText());
+            requete1.setString(2, input_badgeRegister.getText());
             requete1.setString(3, input_pswRegister.getText());
 
-            if(requete1.executeQuery().next()){
+            if (requete1.executeQuery().next()) {
                 userNotFound.setText(Constants.userExist);
                 userNotFound.setTextFill(Color.RED);
                 name_errorLabel.setText("");
-                firstname_errorLabel.setText("");
+                badge_ErrorLabel.setText("");
                 psw_errorLabel.setText("");
-            }
-            else if (nameError && firstNameError && mdpNull) {
+            } else if (nameError && BadgeError && mdpNull) {
                 name_errorLabel.setText(Constants.nomRec);
-                firstname_errorLabel.setText(Constants.prenomRec);
+                badge_ErrorLabel.setText(Constants.badgeRec);
                 psw_errorLabel.setText(Constants.pswRec);
-            }
-            else if (nameError && firstNameError) {
+            } else if (nameError && BadgeError) {
                 name_errorLabel.setText(Constants.nomRec);
-                firstname_errorLabel.setText(Constants.prenomRec);
+                badge_ErrorLabel.setText(Constants.badgeRec);
                 psw_errorLabel.setText("");
-            }
-            else if (firstNameError && mdpNull) {
-                firstname_errorLabel.setText(Constants.prenomRec);
+            } else if (BadgeError && mdpNull) {
+                badge_ErrorLabel.setText(Constants.badgeRec);
                 psw_errorLabel.setText(Constants.pswRec);
                 name_errorLabel.setText("");
-            }
-            else if (nameError && mdpNull) {
+            } else if (nameError && mdpNull) {
                 name_errorLabel.setText(Constants.nomRec);
                 psw_errorLabel.setText(Constants.pswRec);
-                firstname_errorLabel.setText("");
-            }
-            else if (nameError) {
+                badge_ErrorLabel.setText("");
+            } else if (nameError) {
                 userNotFound.setText("");
                 name_errorLabel.setText(Constants.nomRec);
-                firstname_errorLabel.setText("");
+                badge_ErrorLabel.setText("");
                 psw_errorLabel.setText("");
-            }
-            else if (firstNameError) {
+            } else if (BadgeError) {
                 userNotFound.setText("");
                 name_errorLabel.setText("");
-                firstname_errorLabel.setText(Constants.prenomRec);
+                badge_ErrorLabel.setText(Constants.badgeRec);
                 psw_errorLabel.setText("");
             } else if (mdpNull) {
                 userNotFound.setText("");
                 name_errorLabel.setText("");
-                firstname_errorLabel.setText("");
+                badge_ErrorLabel.setText("");
                 psw_errorLabel.setText(Constants.pswRec);
             } else if (mdpError) {
                 userNotFound.setText("");
                 name_errorLabel.setText("");
-                firstname_errorLabel.setText("");
+                badge_ErrorLabel.setText("");
                 psw_errorLabel.setText(Constants.pswRegister);
             }
             else {
@@ -114,9 +109,8 @@ public class InscriptionPageController {
                 psw_errorLabel.setText("");
                 String hashpwd = Md5.generateHash(input_pswRegister.getText());
                 System.out.println(hashpwd);
-                PreparedStatement requete = connection.prepareStatement("insert into user(NOM,PRENOM,PASSWORD) values(?,?,?)");
-                requete.setString(1, input_nomRegister.getText());
-                requete.setString(2, input_prenomRegister.getText());
+
+
                 requete.setString(3, hashpwd);
                 int n = requete.executeUpdate();
                 System.out.println(n);
@@ -131,8 +125,14 @@ public class InscriptionPageController {
             connection.close();
 
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLIntegrityConstraintViolationException e) {
+            userNotFound.setText(Constants.userExist);
+        } catch (NoSuchAlgorithmException e) {
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

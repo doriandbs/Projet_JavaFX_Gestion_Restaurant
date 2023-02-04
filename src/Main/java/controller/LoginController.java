@@ -21,7 +21,7 @@ import java.util.Objects;
 import static Main.java.utils.Md5.generateHash;
 
 public class LoginController {
-    public TextField input_nom;
+    public TextField input_badge;
     public PasswordField input_psw;
     public Label isConnected;
     public Label errormsg;
@@ -32,7 +32,7 @@ public class LoginController {
     Scene scene;
 
     public void login() {
-        boolean nom = ValidationInput.textFieldNull(input_nom);
+        boolean nom = ValidationInput.textFieldNull(input_badge);
         boolean password = ValidationInput.textFieldNull(input_psw);
 
         if (nom && password) errormsg.setText(Constants.verifCh);
@@ -44,18 +44,18 @@ public class LoginController {
             try {
                 ConnectionClass conn = new ConnectionClass();
                 Connection connection = conn.getConnection();
-                PreparedStatement requete = connection.prepareStatement("SELECT * FROM user WHERE NOM = ? AND PASSWORD = ? ");
-//                System.out.println(checkPassword(input_nom.getText(),input_psw.getText()));
+                PreparedStatement requete = connection.prepareStatement("SELECT * FROM user WHERE BADGE = ? AND PASSWORD = ? ");
+//                System.out.println(checkPassword(input_badge.getText(),input_psw.getText()));
                 String pswHash = generateHash(input_psw.getText());
                 System.out.println(pswHash);
-                requete.setString(1, input_nom.getText());
+                requete.setString(1, input_badge.getText());
                 requete.setString(2, pswHash);
                 ResultSet resultSet = requete.executeQuery();
 
 
                 while (resultSet.next()) {
-                    if (Objects.equals(resultSet.getString("NOM"), input_nom.getText()) && Objects.equals(resultSet.getString("PASSWORD"), pswHash)) {
-                        System.out.println(resultSet.getString("NOM") + " est connecté");
+                    if (Objects.equals(resultSet.getString("BADGE"), input_badge.getText()) && Objects.equals(resultSet.getString("PASSWORD"), pswHash)) {
+                        System.out.println(resultSet.getString("NOM") + "badge : " + resultSet.getString("NOM") + " est connecté");
                         isConnected.setText(Constants.connSucc);
                         isConnected.setTextFill(Color.GREEN);
                         errormsg.setText("");
@@ -74,7 +74,7 @@ public class LoginController {
 
     public void inscription(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/Views/register_page.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/Views/register.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
