@@ -1,7 +1,7 @@
 package Main.java.controller;
 
 
-import Main.bdd.ConnectionClass;
+import Main.bdd.DatabaseSingleton;
 import Main.java.ValidationInput;
 import Main.java.constantes.Constants;
 import Main.java.utils.Md5;
@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -49,10 +48,9 @@ public class InscriptionPageController {
         boolean mdpNull = ValidationInput.textFieldNull(input_pswRegister);
 
         try {
-            ConnectionClass conn = new ConnectionClass();
-            Connection connection = conn.getConnection();
-
-            PreparedStatement requete1 = connection.prepareStatement("SELECT * FROM user WHERE NOM = ? AND BADGE = ? AND PASSWORD = ?");
+            DatabaseSingleton db = DatabaseSingleton.getInstance();
+            db.connect();
+            PreparedStatement requete1 = db.prepareStatement("SELECT * FROM user WHERE NOM = ? AND BADGE = ? AND PASSWORD = ?");
             requete1.setString(1, input_nameRegister.getText());
             requete1.setString(2, input_badgeRegister.getText());
             requete1.setString(3, input_pswRegister.getText());
@@ -106,7 +104,7 @@ public class InscriptionPageController {
                 psw_errorLabel.setText("");
                 String hashpwd = Md5.generateHash(input_pswRegister.getText());
                 System.out.println(hashpwd);
-                PreparedStatement requete = connection.prepareStatement("insert into user(NOM,BADGE,PASSWORD) values(?,?,?)");
+                PreparedStatement requete = db.prepareStatement("insert into user(NOM,BADGE,PASSWORD) values(?,?,?)");
                 requete.setString(1, input_nameRegister.getText());
                 requete.setString(2, input_badgeRegister.getText());
                 requete.setString(3, hashpwd);
@@ -120,7 +118,7 @@ public class InscriptionPageController {
                 stage.show();
             }
             requete1.close();
-            connection.close();
+            db.close();
 
 
         } catch (IOException e) {
