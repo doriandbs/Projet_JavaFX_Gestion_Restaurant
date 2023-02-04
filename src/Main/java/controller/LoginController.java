@@ -13,8 +13,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Objects;
+
+import static Main.java.utils.HashPassword.hashPassword;
 
 public class LoginController {
     public TextField input_nom;
@@ -77,4 +80,5 @@ public class LoginController {
         }
 
     }
+
 }
