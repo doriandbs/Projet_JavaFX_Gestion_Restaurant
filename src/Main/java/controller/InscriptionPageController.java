@@ -53,7 +53,6 @@ public class InscriptionPageController {
         utilisateur.setPassword(input_pswRegister.getText());
         utilisateur.setIsAdmin(isAdmin.isSelected());
 
-
         nameError = ValidationInput.textFieldNull(utilisateur.getNom());
         badgeError = ValidationInput.textFieldNull(utilisateur.getBadge());
         mdpError = ValidationInput.PasswordRegister(utilisateur.getPassword());
@@ -66,6 +65,7 @@ public class InscriptionPageController {
             db.connect();
             PreparedStatement SelectUsers = db.prepareStatement(SELECTUSERS);
 
+            SelectUsers.setString(1, utilisateur.getNom());
             SelectUsers.setString(2, utilisateur.getBadge());
             SelectUsers.setString(3, utilisateur.getPassword());
             SelectUsers.setBoolean(4, utilisateur.getIsAdmin());
@@ -148,7 +148,7 @@ public class InscriptionPageController {
         }
     }
 
-    public void back(ActionEvent event) {
+    public void MappingLogging(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/Views/login_page.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

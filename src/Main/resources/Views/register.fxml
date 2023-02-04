@@ -36,10 +36,10 @@
          </font>
       </TextField>
       <Label fx:id="badge_ErrorLabel" layoutX="275.0" layoutY="272.0" prefHeight="34.0" prefWidth="353.0"/>
-      <Button id="link" layoutX="469.0" layoutY="541.0" mnemonicParsing="false" onAction="#back" text="Log In" underline="true">
+      <Hyperlink id="link" layoutX="469.0" layoutY="541.0" onAction="#MappingLogging" text="Log In" underline="true">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
-         </font></Button>
+         </font></Hyperlink>
       <PasswordField id="border" fx:id="input_pswRegister" layoutX="275.0" layoutY="307.0" prefHeight="51.0" prefWidth="353.0" promptText="password">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />

@@ -3,19 +3,6 @@ package Main.java.models;
 public class Users {
     public String Nom;
 
-    public String Password;
-    public Boolean isAdmin;
-
-    public String Badge;
-
-    public String getBadge() {
-        return Badge;
-    }
-
-    public void setBadge(String badge) {
-        Badge = badge;
-    }
-
     public String getNom() {
         return Nom;
     }
@@ -40,5 +27,17 @@ public class Users {
         isAdmin = admin;
     }
 
+    public String getBadge() {
+        return Badge;
+    }
+
+    public void setBadge(String badge) {
+        Badge = badge;
+    }
+
+    public String Password;
+    public Boolean isAdmin;
+
+    public String Badge;
 
 }
