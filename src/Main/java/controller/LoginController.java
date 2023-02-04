@@ -1,8 +1,8 @@
 package Main.java.controller;
-import Main.java.constantes.Constants;
 
 import Main.bdd.ConnectionClass;
 import Main.java.ValidationInput;
+import Main.java.constantes.Constants;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,11 +13,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Objects;
 
-import static Main.java.utils.HashPassword.hashPassword;
+import static Main.java.utils.Md5.generateHash;
 
 public class LoginController {
     public TextField input_nom;
@@ -44,13 +45,16 @@ public class LoginController {
                 ConnectionClass conn = new ConnectionClass();
                 Connection connection = conn.getConnection();
                 PreparedStatement requete = connection.prepareStatement("SELECT * FROM user WHERE NOM = ? AND PASSWORD = ? ");
+//                System.out.println(checkPassword(input_nom.getText(),input_psw.getText()));
+                String pswHash = generateHash(input_psw.getText());
+                System.out.println(pswHash);
                 requete.setString(1, input_nom.getText());
-                requete.setString(2, input_psw.getText());
+                requete.setString(2, pswHash);
                 ResultSet resultSet = requete.executeQuery();
 
 
                 while (resultSet.next()) {
-                    if (Objects.equals(resultSet.getString("NOM"), input_nom.getText()) && Objects.equals(resultSet.getString("PASSWORD"), input_psw.getText())) {
+                    if (Objects.equals(resultSet.getString("NOM"), input_nom.getText()) && Objects.equals(resultSet.getString("PASSWORD"), pswHash)) {
                         System.out.println(resultSet.getString("NOM") + " est connecté");
                         isConnected.setText(Constants.connSucc);
                         isConnected.setTextFill(Color.GREEN);
@@ -80,5 +84,27 @@ public class LoginController {
         }
 
     }
+   /* public static boolean checkPassword(TextField username, PasswordField password) throws NoSuchAlgorithmException {
+        String hashedPassword = generateHash(password.toString());
+        System.out.println(hashedPassword);
+
+        try {
+            ConnectionClass conn = new ConnectionClass();
+            Connection connection = conn.getConnection();
+            PreparedStatement statement = connection.prepareStatement("SELECT password FROM user WHERE nom = ?");
+            statement.setString(1, username.toString());
+            System.out.println(username);
+            ResultSet resultSet = statement.executeQuery();
+            System.out.println(hashedPassword);
+            if (resultSet.next()) {
+                return hashedPassword.equals(resultSet.getString("password"));
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }*/
 
 }

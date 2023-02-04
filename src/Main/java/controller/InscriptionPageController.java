@@ -4,6 +4,7 @@ package Main.java.controller;
 import Main.bdd.ConnectionClass;
 import Main.java.ValidationInput;
 import Main.java.constantes.Constants;
+import Main.java.utils.Md5;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,11 +16,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import java.io.IOException;
-import java.sql.*;
-import java.util.Objects;
 
-import static Main.java.utils.HashPassword.hashPassword;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Objects;
 
 
 public class InscriptionPageController {
@@ -106,12 +107,12 @@ public class InscriptionPageController {
                 userNotFound.setText(Constants.userCreat);
                 userNotFound.setTextFill(Color.GREEN);
                 psw_errorLabel.setText("");
-                String HashPsw = hashPassword(input_pswRegister.getText());
-                System.out.println(HashPsw);
+                String hashpwd = Md5.generateHash(input_pswRegister.getText());
+                System.out.println(hashpwd);
                 PreparedStatement requete = connection.prepareStatement("insert into user(NOM,PRENOM,PASSWORD) values(?,?,?)");
                 requete.setString(1, input_nomRegister.getText());
                 requete.setString(2, input_prenomRegister.getText());
-                requete.setString(3, HashPsw);
+                requete.setString(3, String.valueOf(hashpwd));
                 int n = requete.executeUpdate();
                 System.out.println(n);
                 requete.close();
