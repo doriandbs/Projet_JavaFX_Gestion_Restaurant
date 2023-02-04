@@ -4,6 +4,7 @@ package Main.java.controller;
 import Main.bdd.ConnectionClass;
 import Main.java.ValidationInput;
 import Main.java.constantes.Constants;
+import Main.java.models.Users;
 import Main.java.utils.Md5;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -42,9 +43,11 @@ public class InscriptionPageController {
     Stage stage;
     Scene scene;
 
-    public void addUser(ActionEvent event) {
-        boolean nameError = ValidationInput.textFieldNull(input_badgeRegister);
-        boolean BadgeError = ValidationInput.textFieldNull(input_badgeRegister);
+
+
+    public void addUser(ActionEvent event) throws NoSuchAlgorithmException {
+        boolean nameError = ValidationInput.textFieldNull(input_nomRegister);
+        boolean firstNameError = ValidationInput.textFieldNull(input_prenomRegister);
         boolean mdpError = ValidationInput.PasswordRegister(input_pswRegister);
         boolean mdpNull = ValidationInput.textFieldNull(input_pswRegister);
 
@@ -106,9 +109,8 @@ public class InscriptionPageController {
                 psw_errorLabel.setText("");
                 String hashpwd = Md5.generateHash(input_pswRegister.getText());
                 System.out.println(hashpwd);
-                PreparedStatement requete = connection.prepareStatement("insert into user(NOM,BADGE,PASSWORD) values(?,?,?)");
-                requete.setString(1, input_nameRegister.getText());
-                requete.setString(2, input_badgeRegister.getText());
+
+
                 requete.setString(3, hashpwd);
                 int n = requete.executeUpdate();
                 System.out.println(n);
