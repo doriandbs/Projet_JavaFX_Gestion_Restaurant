@@ -65,10 +65,27 @@ public class LoginController {
                     if (Objects.equals(resultSet.getString("BADGE"), utilisateur.getBadge())
                             && Objects.equals(resultSet.getString("PASSWORD"), utilisateur.getPassword())) {
                         //rajouter condition if si ISADMIN 1 ou 0
-                        System.out.println(resultSet.getString("NOM") + "badge : " + resultSet.getString("BADGE") + " est connecté / IS ADMIN : " + resultSet.getString("ISADMIN"));
-                        isConnected.setText(Constants.connSucc);
-                        isConnected.setTextFill(Color.GREEN);
-                        errormsg.setText("");
+                        if (resultSet.getInt("ISADMIN") == 1) {
+
+                            System.out.println(resultSet.getString("NOM") + "badge : " + resultSet.getString("BADGE") + " est connecté / IS ADMIN : " + resultSet.getInt("ISADMIN"));
+                            isConnected.setText(Constants.connSucc);
+                            isConnected.setTextFill(Color.GREEN);
+                            errormsg.setText("");
+
+
+                            //DIRECTION SUR CETTE PAGE
+
+
+                        } else { //si utilisateur pas admin
+                            System.out.println(resultSet.getString("NOM") + "badge : " + resultSet.getString("BADGE") + " est connecté / IS ADMIN : " + resultSet.getInt("ISADMIN"));
+                            isConnected.setText(Constants.connSucc);
+                            isConnected.setTextFill(Color.GREEN);
+                            errormsg.setText("");
+
+
+                            //DIRECTION SUR CETTE PAGE
+                        }
+
                     } else {
                         errormsg.setText(Constants.nomOrpswI);
                     }
