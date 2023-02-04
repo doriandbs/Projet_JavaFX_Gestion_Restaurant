@@ -47,9 +47,10 @@
          </image>
       </ImageView>
       <Label fx:id="errormsg" layoutX="377.0" layoutY="361.0" prefHeight="17.0" prefWidth="194.0" textAlignment="CENTER" textFill="RED" />
-      <Hyperlink id="link" fx:id="button_register" layoutX="463.0" layoutY="522.0" onAction="#inscription" prefHeight="34.0" prefWidth="150.0" text="Inscription" underline="true">
+      <Hyperlink id="link" fx:id="button_register" layoutX="463.0" layoutY="522.0" onAction="#MappingInscription"
+                 prefHeight="34.0" prefWidth="150.0" text="Inscription" underline="true">
          <font>
-            <Font name="Arial Rounded MT Bold" size="14.0" />
+            <Font name="Arial Rounded MT Bold" size="14.0"/>
          </font>
       </Hyperlink>
       <Label layoutX="353.0" layoutY="530.0" prefHeight="17.0" prefWidth="136.0" text="Not member">

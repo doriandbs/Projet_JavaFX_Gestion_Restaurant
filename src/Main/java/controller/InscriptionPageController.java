@@ -4,16 +4,14 @@ package Main.java.controller;
 import Main.bdd.DatabaseSingleton;
 import Main.java.ValidationInput;
 import Main.java.constantes.Constants;
+import Main.java.models.Users;
 import Main.java.utils.Md5;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -23,6 +21,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Objects;
+
+import static Main.java.constantes.SQLConstants.INSERTUSER;
+import static Main.java.constantes.SQLConstants.SELECTUSERS;
 
 
 public class InscriptionPageController {
@@ -37,39 +38,54 @@ public class InscriptionPageController {
     public Label userNotFound;
     public Button button_inscription;
 
-
+    public CheckBox isAdmin;
+    boolean nameError;
+    boolean badgeError;
+    boolean mdpError;
+    boolean mdpNull;
     Stage stage;
     Scene scene;
 
-    public void addUser(ActionEvent event) {
-        boolean nameError = ValidationInput.textFieldNull(input_nameRegister);
-        boolean BadgeError = ValidationInput.textFieldNull(input_badgeRegister);
-        boolean mdpError = ValidationInput.PasswordRegister(input_pswRegister);
-        boolean mdpNull = ValidationInput.textFieldNull(input_pswRegister);
+    public void addUser(ActionEvent event) throws NoSuchAlgorithmException {
+        Users utilisateur = new Users();
+        utilisateur.setNom(input_nameRegister.getText());
+        utilisateur.setBadge(input_badgeRegister.getText());
+        utilisateur.setPassword(input_pswRegister.getText());
+        utilisateur.setIsAdmin(isAdmin.isSelected());
+
+
+        nameError = ValidationInput.textFieldNull(utilisateur.getNom());
+        badgeError = ValidationInput.textFieldNull(utilisateur.getBadge());
+        mdpError = ValidationInput.PasswordRegister(utilisateur.getPassword());
+        mdpNull = ValidationInput.textFieldNull(utilisateur.getPassword());
+
+        utilisateur.setPassword(Md5.generateHash(utilisateur.getPassword()));
 
         try {
             DatabaseSingleton db = DatabaseSingleton.getInstance();
             db.connect();
-            PreparedStatement requete1 = db.prepareStatement("SELECT * FROM user WHERE NOM = ? AND BADGE = ? AND PASSWORD = ?");
-            requete1.setString(1, input_nameRegister.getText());
-            requete1.setString(2, input_badgeRegister.getText());
-            requete1.setString(3, input_pswRegister.getText());
+            PreparedStatement SelectUsers = db.prepareStatement(SELECTUSERS);
 
-            if (requete1.executeQuery().next()) {
+            SelectUsers.setString(2, utilisateur.getBadge());
+            SelectUsers.setString(3, utilisateur.getPassword());
+            SelectUsers.setBoolean(4, utilisateur.getIsAdmin());
+
+
+            if (SelectUsers.executeQuery().next()) {
                 userNotFound.setText(Constants.userExist);
                 userNotFound.setTextFill(Color.RED);
                 name_errorLabel.setText("");
                 badge_ErrorLabel.setText("");
                 psw_errorLabel.setText("");
-            } else if (nameError && BadgeError && mdpNull) {
+            } else if (nameError && badgeError && mdpNull) {
                 name_errorLabel.setText(Constants.nomRec);
                 badge_ErrorLabel.setText(Constants.badgeRec);
                 psw_errorLabel.setText(Constants.pswRec);
-            } else if (nameError && BadgeError) {
+            } else if (nameError && badgeError) {
                 name_errorLabel.setText(Constants.nomRec);
                 badge_ErrorLabel.setText(Constants.badgeRec);
                 psw_errorLabel.setText("");
-            } else if (BadgeError && mdpNull) {
+            } else if (badgeError && mdpNull) {
                 badge_ErrorLabel.setText(Constants.badgeRec);
                 psw_errorLabel.setText(Constants.pswRec);
                 name_errorLabel.setText("");
@@ -82,7 +98,7 @@ public class InscriptionPageController {
                 name_errorLabel.setText(Constants.nomRec);
                 badge_ErrorLabel.setText("");
                 psw_errorLabel.setText("");
-            } else if (BadgeError) {
+            } else if (badgeError) {
                 userNotFound.setText("");
                 name_errorLabel.setText("");
                 badge_ErrorLabel.setText(Constants.badgeRec);
@@ -102,22 +118,24 @@ public class InscriptionPageController {
                 userNotFound.setText(Constants.userCreat);
                 userNotFound.setTextFill(Color.GREEN);
                 psw_errorLabel.setText("");
-                String hashpwd = Md5.generateHash(input_pswRegister.getText());
-                System.out.println(hashpwd);
-                PreparedStatement requete = db.prepareStatement("insert into user(NOM,BADGE,PASSWORD) values(?,?,?)");
-                requete.setString(1, input_nameRegister.getText());
-                requete.setString(2, input_badgeRegister.getText());
-                requete.setString(3, hashpwd);
-                int n = requete.executeUpdate();
-                System.out.println(n);
-                requete.close();
+                PreparedStatement InsertUser = db.prepareStatement(INSERTUSER);
+                InsertUser.setString(1, utilisateur.getNom());
+                InsertUser.setString(2, utilisateur.getBadge());
+                InsertUser.setString(3, utilisateur.getPassword());
+                InsertUser.setBoolean(4, utilisateur.getIsAdmin());
+                int n = InsertUser.executeUpdate();
+                if (n == 1) {
+                    System.out.println("Requête d'insertion de l'utilisateur bien effectuée, NOM : " + utilisateur.getNom() +
+                            " BADGE : " + utilisateur.getBadge() + " ADMINISTRATEUR : " + utilisateur.getIsAdmin());
+                }
+                InsertUser.close();
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/Views/login_page.fxml")));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
             }
-            requete1.close();
+            SelectUsers.close();
             db.close();
 
 
@@ -125,8 +143,6 @@ public class InscriptionPageController {
             e.printStackTrace();
         } catch (SQLIntegrityConstraintViolationException e) {
             userNotFound.setText(Constants.userExist);
-        } catch (NoSuchAlgorithmException e) {
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

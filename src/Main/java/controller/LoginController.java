@@ -3,6 +3,7 @@ package Main.java.controller;
 import Main.bdd.DatabaseSingleton;
 import Main.java.ValidationInput;
 import Main.java.constantes.Constants;
+import Main.java.models.Users;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,10 +14,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Objects;
 
+import static Main.java.constantes.SQLConstants.SELECTUSER;
 import static Main.java.utils.Md5.generateHash;
 
 public class LoginController {
@@ -26,36 +29,43 @@ public class LoginController {
     public Label errormsg;
     public Button button_connexion;
     public Hyperlink button_register;
+    boolean VerifBadge;
+    boolean VerifPassword;
+
 
     Stage stage;
     Scene scene;
 
-    public void login() {
-        boolean badge = ValidationInput.textFieldNull(input_badge);
-        boolean password = ValidationInput.textFieldNull(input_psw);
+    public void login() throws NoSuchAlgorithmException {
 
-        if (badge && password) errormsg.setText(Constants.verifCh);
-        else if (badge) errormsg.setText(Constants.badgeRec);
-        else if (password) errormsg.setText(Constants.pswRec);
+        Users utilisateur = new Users();
+        utilisateur.setBadge(input_badge.getText());
+        String pswHash = generateHash(input_psw.getText());
+        utilisateur.setPassword(pswHash);
+
+        VerifBadge = ValidationInput.textFieldNull(utilisateur.getBadge());
+        VerifPassword = ValidationInput.textFieldNull(utilisateur.getPassword());
+
+        if (VerifBadge && VerifPassword) errormsg.setText(Constants.verifCh);
+        else if (VerifBadge) errormsg.setText(Constants.badgeRec);
+        else if (VerifPassword) errormsg.setText(Constants.pswRec);
         else errormsg.setText(Constants.userNotFound);
-        if (!badge && !password) {
+        if (!VerifBadge && !VerifPassword) {
 
             try {
                 DatabaseSingleton db = DatabaseSingleton.getInstance();
                 db.connect();
-                PreparedStatement requete = db.prepareStatement("SELECT * FROM user WHERE BADGE = ? AND PASSWORD = ? ");
-//                System.out.println(checkPassword(input_badge.getText(),input_psw.getText()));
-                String pswHash = generateHash(input_psw.getText());
-                System.out.println(pswHash);
-                requete.setString(1, input_badge.getText());
-                requete.setString(2, pswHash);
-                ResultSet resultSet = requete.executeQuery();
+                PreparedStatement SelectUser = db.prepareStatement(SELECTUSER);
 
+                SelectUser.setString(1, utilisateur.getBadge());
+                SelectUser.setString(2, utilisateur.getPassword());
+                ResultSet resultSet = SelectUser.executeQuery();
 
                 while (resultSet.next()) {
-                    if (Objects.equals(resultSet.getString("BADGE"), input_badge.getText()) && Objects.equals(resultSet.getString("PASSWORD"), pswHash)) {
+                    if (Objects.equals(resultSet.getString("BADGE"), utilisateur.getBadge())
+                            && Objects.equals(resultSet.getString("PASSWORD"), utilisateur.getPassword())) {
                         //rajouter condition if si ISADMIN 1 ou 0
-                        System.out.println(resultSet.getString("NOM") + "badge : " + resultSet.getString("BADGE") + " est connecté");
+                        System.out.println(resultSet.getString("NOM") + "badge : " + resultSet.getString("BADGE") + " est connecté / IS ADMIN : " + resultSet.getString("ISADMIN"));
                         isConnected.setText(Constants.connSucc);
                         isConnected.setTextFill(Color.GREEN);
                         errormsg.setText("");
@@ -63,7 +73,7 @@ public class LoginController {
                         errormsg.setText(Constants.nomOrpswI);
                     }
                 }
-                requete.close();
+                SelectUser.close();
                 db.close();
 
             } catch (Exception e) {
@@ -72,7 +82,7 @@ public class LoginController {
         }
     }
 
-    public void inscription(ActionEvent event) {
+    public void MappingInscription(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/Views/register.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

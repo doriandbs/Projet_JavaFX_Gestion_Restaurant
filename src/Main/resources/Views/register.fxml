@@ -61,9 +61,9 @@
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>
       </Label>
-      <CheckBox fx:id="ckeckAdmin" layoutX="395.0" layoutY="399.0" mnemonicParsing="false" text="Administrator">
+      <CheckBox fx:id="isAdmin" layoutX="395.0" layoutY="399.0" mnemonicParsing="false" text="Administrator">
          <font>
-            <Font name="Arial Rounded MT Bold" size="14.0" />
+            <Font name="Arial Rounded MT Bold" size="14.0"/>
          </font>
       </CheckBox>
    </children>

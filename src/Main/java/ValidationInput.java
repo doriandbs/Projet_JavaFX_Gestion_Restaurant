@@ -1,15 +1,14 @@
 package Main.java;
 
-import javafx.scene.control.TextField;
-
 public class ValidationInput {
 
-    public static boolean textFieldNull(TextField inputTextField) {
-        return inputTextField.getText().isBlank();
+    public static boolean textFieldNull(String field) {
+        return field.isBlank();
     }
-    public static boolean PasswordRegister(TextField inputTextField){
+
+    public static boolean PasswordRegister(String field) {
         boolean DataLenght = false;
-        if(!inputTextField.getText().matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}")){
+        if (!field.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}")) {
             DataLenght = true;
         }
         return DataLenght;

@@ -19,4 +19,5 @@ public class Constants {
     public static final String url = "jdbc:mysql://localhost:3306/projetrestaurant";
     public static final String driver = "com.mysql.cj.jdbc.Driver";
 
+
 }
