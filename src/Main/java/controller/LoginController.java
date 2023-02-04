@@ -55,7 +55,7 @@ public class LoginController {
 
                 while (resultSet.next()) {
                     if (Objects.equals(resultSet.getString("BADGE"), input_badge.getText()) && Objects.equals(resultSet.getString("PASSWORD"), pswHash)) {
-                        System.out.println(resultSet.getString("NOM") + "badge : " + resultSet.getString("NOM") + " est connecté");
+                        System.out.println(resultSet.getString("NOM") + "badge : " + resultSet.getString("BADGE") + " est connecté");
                         isConnected.setText(Constants.connSucc);
                         isConnected.setTextFill(Color.GREEN);
                         errormsg.setText("");
