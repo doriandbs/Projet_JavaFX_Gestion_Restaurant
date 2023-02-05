@@ -36,7 +36,7 @@ public class LoginController {
     Stage stage;
     Scene scene;
 
-    public void login() throws NoSuchAlgorithmException {
+    public void login(ActionEvent event) throws NoSuchAlgorithmException {
 
         Users utilisateur = new Users();
         utilisateur.setBadge(input_badge.getText());
@@ -81,6 +81,11 @@ public class LoginController {
                             isConnected.setText(Constants.connSucc);
                             isConnected.setTextFill(Color.GREEN);
                             errormsg.setText("");
+                            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/Views/home.fxml")));
+                            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.show();
 
 
                             //DIRECTION SUR CETTE PAGE
@@ -111,5 +116,6 @@ public class LoginController {
         }
 
     }
+
 
 }

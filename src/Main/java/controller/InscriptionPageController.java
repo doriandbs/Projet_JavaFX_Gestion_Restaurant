@@ -64,7 +64,7 @@ public class InscriptionPageController {
             DatabaseSingleton db = DatabaseSingleton.getInstance();
             db.connect();
             PreparedStatement SelectUsers = db.prepareStatement(SELECTUSERS);
-
+            SelectUsers.setString(1, utilisateur.getNom());
             SelectUsers.setString(1, utilisateur.getNom());
             SelectUsers.setString(2, utilisateur.getBadge());
             SelectUsers.setString(3, utilisateur.getPassword());
