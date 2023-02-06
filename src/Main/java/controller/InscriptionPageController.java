@@ -48,13 +48,13 @@ public class InscriptionPageController {
 
     public void addUser(ActionEvent event) throws NoSuchAlgorithmException {
         Users utilisateur = new Users();
-        utilisateur.setNom(input_nameRegister.getText());
+        utilisateur.setName(input_nameRegister.getText());
         utilisateur.setBadge(input_badgeRegister.getText());
         utilisateur.setPassword(input_pswRegister.getText());
         utilisateur.setIsAdmin(isAdmin.isSelected());
 
-        nameError = ValidationInput.textFieldNull(utilisateur.getNom());
-        badgeError = ValidationInput.textFieldNull(utilisateur.getBadge());
+        nameError = ValidationInput.textFieldNull(utilisateur.getName());
+        badgeError = ValidationInput.textFieldNull(String.valueOf(utilisateur.getBadge()));
         mdpError = ValidationInput.PasswordRegister(utilisateur.getPassword());
         mdpNull = ValidationInput.textFieldNull(utilisateur.getPassword());
 
@@ -64,8 +64,7 @@ public class InscriptionPageController {
             DatabaseSingleton db = DatabaseSingleton.getInstance();
             db.connect();
             PreparedStatement SelectUsers = db.prepareStatement(SELECTUSERS);
-            SelectUsers.setString(1, utilisateur.getNom());
-            SelectUsers.setString(1, utilisateur.getNom());
+            SelectUsers.setString(1, utilisateur.getName());
             SelectUsers.setString(2, utilisateur.getBadge());
             SelectUsers.setString(3, utilisateur.getPassword());
             SelectUsers.setBoolean(4, utilisateur.getIsAdmin());
@@ -119,13 +118,13 @@ public class InscriptionPageController {
                 userNotFound.setTextFill(Color.GREEN);
                 psw_errorLabel.setText("");
                 PreparedStatement InsertUser = db.prepareStatement(INSERTUSER);
-                InsertUser.setString(1, utilisateur.getNom());
+                InsertUser.setString(1, utilisateur.getName());
                 InsertUser.setString(2, utilisateur.getBadge());
                 InsertUser.setString(3, utilisateur.getPassword());
                 InsertUser.setBoolean(4, utilisateur.getIsAdmin());
                 int n = InsertUser.executeUpdate();
                 if (n == 1) {
-                    System.out.println("Requête d'insertion de l'utilisateur bien effectuée, NOM : " + utilisateur.getNom() +
+                    System.out.println("Requête d'insertion de l'utilisateur bien effectuée, NOM : " + utilisateur.getName() +
                             " BADGE : " + utilisateur.getBadge() + " ADMINISTRATEUR : " + utilisateur.getIsAdmin());
                 }
                 InsertUser.close();

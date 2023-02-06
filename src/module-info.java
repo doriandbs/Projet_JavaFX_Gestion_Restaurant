@@ -7,6 +7,7 @@ module Projet.Java.Fx {
     exports Main.java to javafx.graphics;
     exports Main.java.controller to javafx.fxml;
     opens Main.java.controller to javafx.fxml;
+    opens Main.java.models to javafx.base;
     exports Main.bdd to javafx.graphics;
 
 }

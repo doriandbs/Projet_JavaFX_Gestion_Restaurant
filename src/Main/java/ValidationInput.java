@@ -6,6 +6,7 @@ public class ValidationInput {
         return field.isBlank();
     }
 
+
     public static boolean PasswordRegister(String field) {
         boolean DataLenght = false;
         if (!field.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}")) {
