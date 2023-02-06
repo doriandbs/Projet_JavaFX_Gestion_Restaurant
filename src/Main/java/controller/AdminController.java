@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -32,7 +31,23 @@ import static Main.java.constantes.SQLConstants.SELECTEMPLOYEE;
 
 public class AdminController implements Initializable {
     @FXML
-    public TableColumn NAME_user, FIRSTNAME_user, BADGE_user, ADRESSE_user, DATEBIRTH_user, DATEHIRING_user, NUMTEL_user, ID_user, ISADMIN_user;
+    public TableColumn<Object, Object> NAME_user;
+    @FXML
+    public TableColumn<Object, Object> FIRSTNAME_user;
+    @FXML
+    public TableColumn<Object, Object> BADGE_user;
+    @FXML
+    public TableColumn<Object, Object> ADRESSE_user;
+    @FXML
+    public TableColumn<Object, Object> DATEBIRTH_user;
+    @FXML
+    public TableColumn<Object, Object> DATEHIRING_user;
+    @FXML
+    public TableColumn<Object, Object> NUMTEL_user;
+    @FXML
+    public TableColumn<Object, Object> ID_user;
+    @FXML
+    public TableColumn<Object, Object> ISADMIN_user;
     Stage stage;
     Scene scene;
     @FXML
@@ -40,11 +55,11 @@ public class AdminController implements Initializable {
     @FXML
     private ImageView img_stock, img_users, img_money, img_product;
     @FXML
-    private Button btn_load;
+    public Button btn_refresh;
     @FXML
-    private TableView dataTB;
-    private ResultSet rs = null;
-    private PreparedStatement ps = null;
+    public Button btn_add;
+    @FXML
+    private TableView<Employee> dataTB;
     private ObservableList<Employee> data = FXCollections.observableArrayList();
 
     @FXML
@@ -74,13 +89,34 @@ public class AdminController implements Initializable {
         }
     }
 
+    @FXML
+    private void refreshTable() {
+        try {
+            data.clear();
+            DatabaseSingleton db = DatabaseSingleton.getInstance();
+            db.connect();
+            PreparedStatement SelectEmp1 = db.prepareStatement(SELECTEMPLOYEE);
+            ResultSet rs = SelectEmp1.executeQuery();
+            while (rs.next()) {
+                data.add(new Employee(rs.getInt("ID"), rs.getString("NAME"), rs.getString("FIRSTNAME"), rs.getString("BADGE"),
+                        rs.getString("ADRESSE"), rs.getString("DATEBIRTH"), rs.getString("NUMTEL"), rs.getString("DATEHIRING"),
+                        rs.getBoolean("ISADMIN")));
+            }
+            dataTB.setItems(data);
+            SelectEmp1.close();
+            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setDataCell();
         try {
+            setDataCell();
             loadData();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -100,18 +136,33 @@ public class AdminController implements Initializable {
     }
 
 
-    private void loadData() throws SQLException {
-        DatabaseSingleton db = DatabaseSingleton.getInstance();
-        db.connect();
-        ps = db.prepareStatement(SELECTEMPLOYEE);
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            data.add(new Employee(rs.getInt("ID"), rs.getString("NAME"), rs.getString("FIRSTNAME"), rs.getString("BADGE"),
-                    rs.getString("ADRESSE"), rs.getString("DATEBIRTH"), rs.getString("DATEHIRING"), rs.getString("NUMTEL"),
-                    rs.getBoolean("ISADMIN")));
+    private void loadData() {
+        try {
+            DatabaseSingleton db = DatabaseSingleton.getInstance();
+            db.connect();
+            PreparedStatement SelectEmp2 = db.prepareStatement(SELECTEMPLOYEE);
+            ResultSet resultSet = SelectEmp2.executeQuery();
+            while (resultSet.next()) {
+                data.add(new Employee(resultSet.getInt("ID"), resultSet.getString("NAME"), resultSet.getString("FIRSTNAME"), resultSet.getString("BADGE"),
+                        resultSet.getString("ADRESSE"), resultSet.getString("DATEBIRTH"), resultSet.getString("NUMTEL"), resultSet.getString("DATEHIRING"),
+                        resultSet.getBoolean("ISADMIN")));
+            }
+            dataTB.setItems(data);
+            SelectEmp2.close();
+            db.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
         }
-        dataTB.setItems(data);
-        System.out.println("DATA" + data.get(0).toString());
-        System.out.println("DATA" + data.get(1).toString());
+    }
+
+
+    public void addEmployee(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/Views/addEmployee.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
     }
 }

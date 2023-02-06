@@ -192,14 +192,11 @@
                       style="-fx-background-color: #E83845;">
                     <children>
                         <Label text="Users"/>
-                        <Button fx:id="btn_load" layoutX="138.0" layoutY="525.0" mnemonicParsing="false"
-                                prefHeight="108.0" prefWidth="286.0" text="Afficher les employés"/>
                         <TableView fx:id="dataTB" layoutX="10.0" layoutY="74.0" prefHeight="396.0" prefWidth="1160.0"
                                    stylesheets="@../css/style.css">
                             <columns>
                                 <TableColumn fx:id="ID_user" prefWidth="75.0" text="ID"/>
                                 <TableColumn fx:id="NAME_user" prefWidth="75.0" text="NAME"/>
-
                                 <TableColumn fx:id="FIRSTNAME_user" prefWidth="75.0" text="FIRSTNAME"/>
                                 <TableColumn fx:id="BADGE_user" prefWidth="75.0" text="BADGE"/>
                                 <TableColumn fx:id="ADRESSE_user" prefWidth="152.0" text="ADRESSE"/>
@@ -212,6 +209,11 @@
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                             </columnResizePolicy>
                         </TableView>
+                        <Button fx:id="btn_refresh" layoutX="131.0" layoutY="523.0" mnemonicParsing="false"
+                                onAction="#refreshTable" prefHeight="108.0" prefWidth="286.0"
+                                text="Raffraichir le tableau"/>
+                        <Button fx:id="btn_add" layoutX="829.0" layoutY="523.0" mnemonicParsing="false"
+                                prefHeight="108.0" prefWidth="286.0" text="Ajouter un employé" onAction="#addEmployee"/>
                     </children>
                 </Pane>
             </children>

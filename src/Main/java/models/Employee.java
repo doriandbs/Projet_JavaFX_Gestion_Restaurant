@@ -112,7 +112,7 @@ public class Employee {
         return Badge;
     }
 
-    public boolean isIsAdmin() {
+    public boolean getIsAdmin() {
         return IsAdmin.get();
     }
 
