@@ -14,30 +14,30 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class HomeController {
-    @FXML
-    private Pane pnl_menu, pnl_burger, pnl_boisson, pnl_dessert, pnl_supp;
-    @FXML
-    private ImageView img_menu, img_burger, img_drink, img_dessert, img_supp;
+public class AdminController {
 
-    Scene scene;
+    @FXML
+    private Pane pnl_stocks, pnl_users, pnl_money, pnl_product;
+    @FXML
+    private ImageView img_stock, img_users, img_money, img_product;
+
     Stage stage;
+    Scene scene;
 
     @FXML
     private void handleButtonAction(MouseEvent mouseDragEvent) {
-        if (mouseDragEvent.getSource() == img_menu) {
-            pnl_menu.toFront();
+        if (mouseDragEvent.getSource() == img_stock) {
+            pnl_stocks.toFront();
             System.out.println("Test bien appuyé");
-        } else if (mouseDragEvent.getSource() == img_burger) {
-            pnl_burger.toFront();
-        } else if (mouseDragEvent.getSource() == img_drink) {
-            pnl_boisson.toFront();
-        } else if (mouseDragEvent.getSource() == img_dessert) {
-            pnl_dessert.toFront();
-        } else if (mouseDragEvent.getSource() == img_supp) {
-            pnl_supp.toFront();
+        } else if (mouseDragEvent.getSource() == img_money) {
+            pnl_money.toFront();
+        } else if (mouseDragEvent.getSource() == img_users) {
+            pnl_users.toFront();
+        } else if (mouseDragEvent.getSource() == img_product) {
+            pnl_product.toFront();
         }
     }
+
 
     public void MappingLogout(ActionEvent event) {
         try {
