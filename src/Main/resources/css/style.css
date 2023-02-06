@@ -37,3 +37,9 @@
 #border{
     -fx-border-color: #FBDF17;
 }
+.bg_white{
+    -fx-background-color: #FFFFFF;
+}
+.bg_transparant{
+    -fx-background-color: #FFFFFF;
+}
