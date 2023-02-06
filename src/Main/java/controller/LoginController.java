@@ -65,12 +65,16 @@ public class LoginController {
                     if (Objects.equals(resultSet.getString("BADGE"), utilisateur.getBadge())
                             && Objects.equals(resultSet.getString("PASSWORD"), utilisateur.getPassword())) {
                         //rajouter condition if si ISADMIN 1 ou 0
-                        if (resultSet.getInt("ISADMIN") == 1) {
-
+                        if (resultSet.getInt("ISADMIN") == 1) { // Utilisateur Admin
                             System.out.println(resultSet.getString("NOM") + "badge : " + resultSet.getString("BADGE") + " est connecté / IS ADMIN : " + resultSet.getInt("ISADMIN"));
                             isConnected.setText(Constants.connSucc);
                             isConnected.setTextFill(Color.GREEN);
                             errormsg.setText("");
+                            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main/resources/Views/admin.fxml")));
+                            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.show();
 
 
                             //DIRECTION SUR CETTE PAGE
