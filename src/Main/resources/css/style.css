@@ -38,6 +38,10 @@
     -fx-border-color: #FBDF17;
 }
 
+#my-table .table-column {
+    -fx-alignment: CENTER;
+}
+
 .bg_white{
     -fx-background-color: #FFFFFF;
 }

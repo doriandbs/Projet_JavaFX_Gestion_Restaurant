@@ -27,6 +27,7 @@ import java.sql.ResultSet;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static Main.java.constantes.SQLConstants.COUNTEMPLOYEE;
 import static Main.java.constantes.SQLConstants.SELECTEMPLOYEE;
 
 public class AdminController implements Initializable {
@@ -61,6 +62,7 @@ public class AdminController implements Initializable {
     @FXML
     private TableView<Employee> dataTB;
     private ObservableList<Employee> data = FXCollections.observableArrayList();
+    private int count;
 
     @FXML
     private void handleButtonAction(MouseEvent mouseDragEvent) {
@@ -93,18 +95,7 @@ public class AdminController implements Initializable {
     private void refreshTable() {
         try {
             data.clear();
-            DatabaseSingleton db = DatabaseSingleton.getInstance();
-            db.connect();
-            PreparedStatement SelectEmp1 = db.prepareStatement(SELECTEMPLOYEE);
-            ResultSet rs = SelectEmp1.executeQuery();
-            while (rs.next()) {
-                data.add(new Employee(rs.getInt("ID"), rs.getString("NAME"), rs.getString("FIRSTNAME"), rs.getString("BADGE"),
-                        rs.getString("ADRESSE"), rs.getString("DATEBIRTH"), rs.getString("NUMTEL"), rs.getString("DATEHIRING"),
-                        rs.getBoolean("ISADMIN")));
-            }
-            dataTB.setItems(data);
-            SelectEmp1.close();
-            db.close();
+            loadData();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -147,7 +138,15 @@ public class AdminController implements Initializable {
                         resultSet.getString("ADRESSE"), resultSet.getString("DATEBIRTH"), resultSet.getString("NUMTEL"), resultSet.getString("DATEHIRING"),
                         resultSet.getBoolean("ISADMIN")));
             }
+            dataTB.setId("my-table");
+            PreparedStatement psc = db.prepareStatement(COUNTEMPLOYEE);
+            ResultSet rsc = psc.executeQuery();
+            if (rsc.next()) {
+                count = rsc.getInt("recordCount");
+            }
+            dataTB.setPrefHeight(count * 29);
             dataTB.setItems(data);
+            rsc.close();
             SelectEmp2.close();
             db.close();
         } catch (Exception ex) {
@@ -163,6 +162,5 @@ public class AdminController implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
     }
 }

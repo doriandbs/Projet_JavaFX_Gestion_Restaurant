@@ -32,8 +32,7 @@ public class DatabaseSingleton {
     }
 
     public PreparedStatement prepareStatement(String sql) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(sql);
-        return statement;
+        return connection.prepareStatement(sql);
     }
 
     public void close() {
