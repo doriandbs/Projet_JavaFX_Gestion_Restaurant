@@ -53,29 +53,35 @@ public class AddEmployeeController implements Initializable {
 
     @FXML
     private void save() throws SQLException {
-        Employee employee = new Employee(0, input_name.getText(), input_firstname.getText(), input_badge.getText(), input_adresse.getText(), input_datebirth.getText(), input_numtel.getText(), input_datehiring.getText(), check_isadmin.isSelected());
-        if (input_name.getText().isEmpty() || input_firstname.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("veuillez rentrer des valeurs");
-            alert.showAndWait();
-        } else {
-            DatabaseSingleton db = DatabaseSingleton.getInstance();
-            db.connect();
-            PreparedStatement insertEmp = db.prepareStatement(INSERTEMPLOYEE);
-            insertEmp.setString(1, employee.getName());
-            insertEmp.setString(2, employee.getBadge());
-            insertEmp.setBoolean(3, employee.getIsAdmin());
-            insertEmp.setString(4, employee.getFirstName());
-            insertEmp.setString(5, employee.getAdresse());
-            insertEmp.setString(6, employee.getDateBirth());
-            insertEmp.setString(7, employee.getDateEmbauche());
-            insertEmp.setString(8, employee.getNumTel());
+        try {
+            Employee employee = new Employee(0, input_name.getText(), input_firstname.getText(), input_badge.getText(), input_adresse.getText(), input_datebirth.getText(), input_numtel.getText(), input_datehiring.getText(), check_isadmin.isSelected());
+            if (input_name.getText().isEmpty() || input_firstname.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("veuillez rentrer des valeurs");
+                alert.showAndWait();
+            } else {
+                DatabaseSingleton db = DatabaseSingleton.getInstance();
+                db.connect();
+                PreparedStatement insertEmp = db.prepareStatement(INSERTEMPLOYEE);
+                insertEmp.setString(1, employee.getName());
+                insertEmp.setString(2, employee.getBadge());
+                insertEmp.setBoolean(3, employee.getIsAdmin());
+                insertEmp.setString(4, employee.getFirstName());
+                insertEmp.setString(5, employee.getAdresse());
+                insertEmp.setString(6, employee.getDateBirth());
+                insertEmp.setString(7, employee.getDateEmbauche());
+                insertEmp.setString(8, employee.getNumTel());
 
-            insertEmp.executeUpdate();
-            insertEmp.close();
-            db.close();
+                insertEmp.executeUpdate();
+                insertEmp.close();
+                db.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error");
         }
+
+
     }
 
     @FXML
